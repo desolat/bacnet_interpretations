@@ -55,5 +55,5 @@ for id, para in enumerate(paras):
     summary = italics[0].text
     data['summary'] = summary
 
-    data.sqlite.save(unique_keys=['id'], data=data)
+    scraperwiki.sqlite.save(unique_keys=['id'], data=data)
 
