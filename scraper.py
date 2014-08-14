@@ -26,6 +26,8 @@ paras = tds[0].cssselect('p')
 
 for id, para in enumerate(paras):
     irLinks = para.cssselect('a')
+    if len(irLinks) != 1:
+        continue
     irLink = irLinks[0]
     irTitle = irLink.text
 #    data['title'] = irTitle
@@ -48,15 +50,10 @@ for id, para in enumerate(paras):
     pdfData = urllib2.urlopen(absDocUrl).read()
     xmldata = scraperwiki.pdftoxml(pdfData)
     print xmldata
-    exit
 
     italics = para.cssselect('i')
     summary = italics[0].text
     data['summary'] = summary
-    
 
-    scraperwiki.sqlite.save(unique_keys=['id'], data=data)
-
-
-# For more, click on Quick help and select lxml cheat sheet
+    data.sqlite.save(unique_keys=['id'], data=data)
 
