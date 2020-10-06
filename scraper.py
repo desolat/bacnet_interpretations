@@ -35,7 +35,7 @@ try:
         irTitle = irLink.text
     #    data['title'] = irTitle
         print irTitle
-        titleMatch = re.match('Interpretation (?P<id>[\d-.]+) - (?P<date>.+)$', irTitle)
+        titleMatch = re.match('Interpretation (?P<id>[\d-\.]+) - (?P<date>.+)$', irTitle)
         if titleMatch is not None:
             id = titleMatch.group('id')
             print id
