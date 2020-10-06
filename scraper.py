@@ -13,15 +13,15 @@ print base
 root = lxml.html.parse(url).getroot()
 tables = root.cssselect("table")
 
-print tables
+#print tables
 irTable = tables[1]
 trs = irTable.cssselect('tr')
-print trs
+#print trs
 irTr = trs[3]
 
 tds = irTr.cssselect('td')
-print tds
-print lxml.html.tostring(tds[0])
+#print tds
+#print lxml.html.tostring(tds[0])
 paras = tds[0].cssselect('p')
 
 try:
@@ -33,9 +33,10 @@ try:
         irTitle = irLink.text
     #    data['title'] = irTitle
         print irTitle
-        titleMatch = re.match('Interpretation (?P<id>[\d-]+) - (?P<date>.+)$', irTitle)
+        titleMatch = re.match('Interpretation (?P<id>[\d-.]+) - (?P<date>.+)$', irTitle)
         if titleMatch is not None:
             id = titleMatch.group('id')
+            print id
             data = {'id' : id}
             dateStr = titleMatch.group('date')
             publishDate = datetime.strptime(dateStr, '%B %d, %Y')
@@ -48,9 +49,10 @@ try:
         absDocUrl = ('/'.join((base, relDocUrl)))
         print absDocUrl
         data['doc_url'] = absDocUrl
+        
         pdfData = urllib2.urlopen(absDocUrl).read()
         xmldata = scraperwiki.pdftoxml(pdfData)
-        print xmldata
+        #print xmldata
 
         italics = para.cssselect('i')
         summary = italics[0].text
@@ -58,5 +60,5 @@ try:
 
         scraperwiki.sqlite.save(unique_keys=['id'], data=data)
 except Exception as ex:
-    print ex
+    print "Error: " + ex
     exit(2)
