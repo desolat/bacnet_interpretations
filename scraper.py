@@ -60,5 +60,5 @@ try:
 
         scraperwiki.sqlite.save(unique_keys=['id'], data=data)
 except Exception as ex:
-    print "Error: " + str(ex)
+    print "Error: ", ex
     exit(2)
