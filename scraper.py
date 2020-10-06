@@ -1,9 +1,11 @@
-import scraperwiki
-import lxml.html
+import traceback
 import urllib
 import urllib2
 import re
 from datetime import datetime
+
+import scraperwiki
+import lxml.html
 
 url = "http://www.bacnet.org/Interpretations/index.html"
 
@@ -59,6 +61,6 @@ try:
         data['summary'] = summary
 
         scraperwiki.sqlite.save(unique_keys=['id'], data=data)
-except Exception as ex:
-    print "Error: ", ex
+except Exception:
+    traceback.print_exc()
     exit(2)
